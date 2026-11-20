@@ -1,0 +1,35 @@
+# Claude Code session settings (local to this computer)
+.claude/
+
+# macOS / Windows clutter
+.DS_Store
+._*
+Thumbs.db
+
+# Editors
+.vscode/
+.idea/
+*.swp
+
+# Unfinished browser downloads
+*.crdownload
+*.part
+
+# Future Ghost theme build output
+node_modules/
+dist/
+*.zip
+
+# Secrets (Ghost API keys, Stripe keys, etc.)
+.env
+.env.*
+
+# Raw media: keep interview masters and uncleared files out of git
+# (store them in the project's shared drive instead)
+media-raw/
+*.wav
+*.flac
+*.aif
+*.aiff
+*.mov
+*.mp4

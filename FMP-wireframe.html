@@ -1,0 +1,366 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FMP Wireframe</title>
+<!--
+  Fenway Memory Project: clickable wireframe (draft, 11/12/2026)
+  Minimalist, La MaMa-inspired theme. Logo green #3EA547, deep green #2B7A32.
+  Self-contained: open this file in any browser. Only external resource is the Archivo font.
+  Structure and decisions: see FMP-site-structure.md
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #151515;
+    --mute: #6e6e6a;
+    --line: #e3e3df;
+    --ph: #ededea;
+    --ph-hover: #e3efe3;
+    --g: #3EA547;   /* logo green: accents, icons, large elements */
+    --gd: #2B7A32;  /* deep green: small text and buttons (passes contrast on white) */
+    --frame: #f4f4f1;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body { background: var(--frame); color: var(--ink); font-family: 'Archivo', system-ui, -apple-system, 'Segoe UI', sans-serif; }
+
+  .site { max-width: 1100px; margin: 0 auto; background: #fff; min-height: 100vh; display: flex; flex-direction: column; }
+  .site h1, .site h2, .site h3 { font-weight: 500; margin: 0; }
+  main { padding: 36px 32px 44px; flex: 1; }
+
+  /* header */
+  .hdr { display: flex; justify-content: space-between; align-items: center; padding: 14px 32px; border-bottom: 1px solid var(--ink); }
+  .logo { background: var(--g); color: #fff; padding: 6px 10px; line-height: 1.05; cursor: pointer; font-size: 12px; letter-spacing: .06em; text-transform: uppercase; font-weight: 500; }
+  .hdr-right { display: flex; align-items: center; gap: 16px; }
+  .cur { font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--mute); }
+  .burger { cursor: pointer; width: 28px; height: 20px; display: flex; flex-direction: column; justify-content: space-between; background: none; border: 0; padding: 0; }
+  .burger span { display: block; height: 2px; background: var(--ink); transition: transform .2s, opacity .2s; }
+  .burger.open span:nth-child(1) { transform: translateY(9px) rotate(45deg); }
+  .burger.open span:nth-child(2) { opacity: 0; }
+  .burger.open span:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
+
+  /* menu */
+  .menu { display: none; padding: 12px 32px 24px; border-bottom: 1px solid var(--line); }
+  .menu.open { display: block; }
+  .mi { font-size: 28px; letter-spacing: .04em; text-transform: uppercase; padding: 14px 0; border-bottom: 1px solid var(--line); cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
+  .mi:hover, .mi.on { color: var(--gd); }
+  .mi .arr { color: var(--g); font-size: 20px; }
+  .msub { display: flex; gap: 20px; flex-wrap: wrap; margin-top: 18px; }
+
+  /* type */
+  .H { font-size: 13px; letter-spacing: .08em; text-transform: uppercase; font-weight: 500; margin: 0 0 10px; }
+  .T { font-size: 14px; line-height: 1.7; color: var(--mute); margin: 0 0 10px; max-width: 62ch; }
+  .fl { font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: var(--mute); margin-right: 16px; cursor: pointer; }
+  .fl.on { color: var(--ink); border-bottom: 1px solid var(--g); }
+  .lk { color: var(--gd); font-size: 12px; letter-spacing: .06em; text-transform: uppercase; cursor: pointer; border-bottom: 1px solid var(--g); padding-bottom: 1px; }
+  .crumb { font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--mute); margin-bottom: 16px; }
+  .crumb span { cursor: pointer; }
+  .title { font-size: 32px; letter-spacing: .02em; text-transform: uppercase; margin-bottom: 20px; }
+  .meta { font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--mute); }
+
+  /* blocks */
+  .ph { background: var(--ph); display: flex; align-items: center; justify-content: center; color: #a3a39e; font-size: 11px; letter-spacing: .06em; text-transform: uppercase; position: relative; }
+  .ar { cursor: pointer; }
+  .ar:hover .ph { background: var(--ph-hover); }
+  .rule { border-top: 1px solid var(--line); }
+  .rule-ink { border-top: 1px solid var(--ink); }
+  .btn { display: inline-block; cursor: pointer; background: var(--gd); color: #fff; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; padding: 11px 20px; }
+  .play-big { position: absolute; width: 48px; height: 48px; border-radius: 50%; background: var(--g); display: flex; align-items: center; justify-content: center; color: #fff; }
+
+  /* clip player */
+  .cl { display: flex; align-items: center; gap: 14px; padding: 12px 0; border-bottom: 1px solid var(--line); }
+  .pb { width: 32px; height: 32px; border-radius: 50%; background: var(--g); color: #fff; display: flex; align-items: center; justify-content: center; flex-shrink: 0; cursor: pointer; }
+  .cl-t { font-size: 14px; }
+  .cl-bar { height: 2px; background: var(--line); margin-top: 7px; }
+  .cl-d { font-size: 12px; color: var(--mute); }
+
+  /* quote */
+  .q { display: flex; gap: 14px; margin: 18px 0; }
+  .q-mark { font-size: 52px; line-height: .8; color: var(--g); font-family: Georgia, serif; }
+  .q-text { font-size: 14px; letter-spacing: .04em; text-transform: uppercase; line-height: 1.5; }
+
+  /* grids */
+  .g2 { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 32px; }
+  .g2e { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 32px; }
+  .g2p { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: 32px; }
+  .g3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+  .g4 { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 22px 16px; }
+  .g4s { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
+
+  /* map */
+  .map { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 4px; align-items: end; }
+  .cell { background: var(--ph); cursor: pointer; }
+  .cell:hover { background: var(--g); }
+
+  /* data row */
+  .nums { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-top: 1px solid var(--ink); }
+  .num { padding: 12px 12px 12px 0; border-right: 1px solid var(--line); }
+  .num b { display: block; font-size: 26px; font-weight: 400; color: var(--gd); }
+  .num span { font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--mute); }
+
+  /* timeline */
+  .tl-wrap { position: relative; padding-left: 26px; }
+  .tl-line { position: absolute; left: 5px; top: 6px; bottom: 6px; width: 1px; background: var(--g); }
+  .tl { position: relative; display: grid; grid-template-columns: 84px 110px minmax(0, 1fr); gap: 18px; align-items: center; padding: 14px 0; border-bottom: 1px solid var(--line); cursor: pointer; }
+  .tl:hover .ph { background: var(--ph-hover); }
+  .tl-dot { position: absolute; left: -25px; width: 9px; height: 9px; border-radius: 50%; background: var(--g); }
+  .tl-year { font-size: 24px; }
+  .tl-title { font-size: 14px; letter-spacing: .04em; text-transform: uppercase; }
+
+  /* events list */
+  .ev { display: grid; grid-template-columns: 96px minmax(0, 1fr); gap: 18px; padding: 16px 0; border-bottom: 1px solid var(--line); }
+  .ev-d { font-size: 15px; letter-spacing: .06em; color: var(--gd); }
+  .ev-t { font-size: 15px; text-transform: uppercase; letter-spacing: .04em; }
+  .ev-s { font-size: 13px; color: var(--mute); margin-top: 3px; }
+
+  /* people */
+  .pname { font-size: 12px; letter-spacing: .06em; text-transform: uppercase; margin-top: 10px; }
+  .pmeta { font-size: 12px; color: var(--mute); }
+  .has-clips { position: absolute; top: 8px; right: 8px; color: var(--gd); }
+
+  /* footer + wireframe note */
+  .ftr { border-top: 1px solid var(--ink); padding: 14px 32px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
+  .ftr span { font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--mute); }
+  .note { max-width: 1100px; margin: 0 auto; padding: 14px 32px 28px; font-size: 13px; line-height: 1.6; color: var(--mute); }
+  .note b { color: var(--ink); font-weight: 500; }
+
+  @media (max-width: 700px) {
+    main { padding: 28px 16px 36px; }
+    .hdr, .menu, .ftr, .note { padding-left: 16px; padding-right: 16px; }
+    .g2, .g2e, .g2p, .g3 { grid-template-columns: minmax(0, 1fr); gap: 22px; }
+    .g4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .nums { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .tl { grid-template-columns: 70px minmax(0, 1fr); }
+    .tl .ph { display: none; }
+    .title { font-size: 26px; }
+    .mi { font-size: 22px; }
+  }
+</style>
+</head>
+<body>
+<div class="site">
+  <header class="hdr">
+    <div class="logo" id="logo">Fenway<br>Memory<br>Project</div>
+    <div class="hdr-right">
+      <span class="cur" id="cur"></span>
+      <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+  <nav class="menu" id="menu">
+    <div id="mlist"></div>
+    <div class="msub"><span class="fl">About and team</span><span class="fl">Contact</span><span class="fl">Share your story</span><span class="fl">bitsandflow.org</span></div>
+  </nav>
+  <main id="pg"></main>
+  <footer class="ftr"><span>Fenway Memory Project · a bitsandflow project</span><span>Contact · Instagram · Vimeo</span></footer>
+</div>
+<p class="note" id="note"></p>
+
+<script>
+  const ICON_PLAY = '<svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>';
+  const ICON_PLAY_BIG = '<svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>';
+  const ICON_HEADPHONES = '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-label="Has interview clips"><path d="M4 15v-3a8 8 0 0 1 16 0v3"/><rect x="3" y="14" width="5" height="7" rx="1.5"/><rect x="16" y="14" width="5" height="7" rx="1.5"/></svg>';
+
+  const go = p => 'onclick="show(\'' + p + '\')"';
+  const ph = (h, l) => '<div class="ph" style="height:' + h + 'px">' + (l === undefined ? 'image' : l) + '</div>';
+  const T = s => '<p class="T">' + s + '</p>';
+  const clip = (t, d) => '<div class="cl"><div class="pb">' + ICON_PLAY + '</div><div style="flex:1;min-width:0"><div class="cl-t">' + t + '</div><div class="cl-bar"></div></div><span class="cl-d">' + (d || '3:00') + '</span></div>';
+  const quote = (q, a) => '<div class="q"><div class="q-mark">&ldquo;</div><div><div class="q-text">' + q + '</div><div class="meta" style="margin-top:6px">— ' + a + '</div></div></div>';
+  const crumb = (p, k, t) => '<div class="crumb"><span ' + go(k) + '>' + p + '</span> / ' + t + '</div>';
+
+  const PAGES = {
+    home: {
+      note: 'One custom homepage template. Mission first, a big image, an offset story block with a pull quote, then three doors into the site.',
+      html: () => `
+        <div class="H">Our mission</div>
+        ${T('Mission statement goes here: one or two sentences on why the project exists, whose stories it keeps, and who it is for.')}
+        <div class="g2" style="margin-top:22px;align-items:end">
+          <div class="ph" style="height:300px"><span style="position:absolute;left:12px;bottom:10px">hero image or video</span><div class="play-big">${ICON_PLAY_BIG}</div></div>
+          <div>
+            <div class="H">The project</div>
+            ${T('Short overview: oral histories, photographs and records of the Fenway, gathered with residents and organized by place, by moment, and by person.')}
+            ${quote('A line from one of the interviews goes here', 'Resident, interview 2025')}
+          </div>
+        </div>
+        <div class="H" style="margin-top:44px">Explore</div>
+        <div class="g3">
+          ${[['places','Places','The neighborhood, block by block'],['issues','Issues','What happened, and when'],['people','People','The voices of the Fenway']].map(([k,t,s]) =>
+            '<div class="ar" ' + go(k) + '>' + ph(160) + '<div style="display:flex;justify-content:space-between;align-items:baseline;margin-top:10px"><span class="H" style="margin:0">' + t + '</span><span style="color:var(--g)">&rarr;</span></div>' + T(s) + '</div>').join('')}
+        </div>
+        <div class="g2e rule" style="margin-top:34px">
+          <div style="padding-top:18px">
+            <div class="H">Featured voice</div>
+            ${clip('Person name: a three-minute memory')}
+            <div style="margin-top:12px"><span class="lk" ${go('person')}>Meet them</span></div>
+          </div>
+          <div style="padding-top:18px">
+            <div class="H">Next event</div>
+            <div class="ev-d">NOV 20</div>
+            <div style="font-size:15px;margin:4px 0 12px">Event name · Venue</div>
+            <span class="lk" ${go('events')}>All events</span>
+          </div>
+        </div>
+        <div class="rule" style="margin-top:34px;padding-top:20px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+          <div class="H" style="margin:0">Support the project</div>
+          <span class="btn" ${go('support')}>Donate</span>
+        </div>`
+    },
+    places: {
+      note: 'Ghost has no maps: this is a free mapping library (e.g. Leaflet) plus census boundary files inside a theme page. Each shape links to a place profile. v1 fallback: the List view.',
+      html: () => {
+        let cells = '';
+        for (let i = 0; i < 36; i++) cells += '<div class="cell" style="height:' + (34 + (i * 11) % 34) + 'px" ' + go('place') + ' title="Open profile"></div>';
+        return `
+          <div class="H">Places</div>
+          ${T('Explore the Fenway block by block. Select an area to open its story, its numbers and the buildings standing there today.')}
+          <div style="margin:14px 0 18px"><span class="fl on">Map</span><span class="fl">List</span></div>
+          <div class="map">${cells}</div>
+          <div class="meta" style="margin-top:12px">Select a block to open its profile</div>`;
+      }
+    },
+    place: {
+      note: 'A Ghost post tagged "place". Image left, story right; the numbers sit in a quiet row with thin rules. Clip only if it is mainly about this location. Data is typed by hand or read from one data file.',
+      html: () => `
+        ${crumb('Places', 'places', 'Block group A')}
+        <h1 class="title">Block group A</h1>
+        <div class="g2">
+          ${ph(280, 'then and now photo')}
+          <div>
+            <div class="H">The story</div>
+            ${T('Story about this place: what stood here, who lived and worked here, and how it changed.')}
+            ${T('A second paragraph continues the story.')}
+            ${clip('About this place')}
+          </div>
+        </div>
+        <div class="H" style="margin-top:36px">By the numbers</div>
+        <div class="nums">${['Population','Housing units','Median rent','Jobs'].map(x => '<div class="num"><b>—</b><span>' + x + '</span></div>').join('')}</div>
+        <div class="H" style="margin-top:36px">Standing here today</div>
+        ${[1,2,3].map(() => '<div style="display:flex;justify-content:space-between;font-size:14px;padding:10px 0;border-bottom:1px solid var(--line)"><span>Building name</span><span style="color:var(--mute)">Use · built 19XX</span></div>').join('')}
+        <div style="margin-top:24px;display:flex;gap:20px;flex-wrap:wrap"><span class="lk" ${go('person')}>Person from here</span><span class="lk" ${go('event')}>What happened here</span></div>`
+    },
+    issues: {
+      note: 'A theme page that lists every "issue" post in date order (safe method: start each title with the year and sort by title). The thin line and dots are the only green.',
+      html: () => `
+        <div class="H">Issues</div>
+        ${T('What happened to the neighborhood, in order. Scroll through the decades and open any moment to read its story.')}
+        <div style="margin:14px 0 20px"><span class="fl on">All</span><span class="fl">Housing</span><span class="fl">Development</span><span class="fl">Community</span></div>
+        <div class="tl-wrap"><div class="tl-line"></div>
+          ${['1900s','1930s','1960s','1980s','2000s'].map(y =>
+            '<div class="tl" ' + go('event') + '><div class="tl-dot"></div><div class="tl-year">' + y + '</div>' + ph(70, '') + '<div><div class="tl-title">Event title</div>' + T('One line on what happened.') + '</div></div>').join('')}
+        </div>`
+    },
+    event: {
+      note: 'A normal Ghost post with a gallery block. A clip appears only when someone talks mainly about this moment.',
+      html: () => `
+        ${crumb('Issues', 'issues', '1960s')}
+        <div style="font-size:56px;line-height:1;color:var(--g)">1960s</div>
+        <h1 class="title" style="margin-top:8px">Event title</h1>
+        ${ph(320, 'lead photo')}
+        <div style="margin-top:20px">${T('The story of what happened, why it mattered, and who it affected.')}${T('A second paragraph continues the story.')}</div>
+        <div class="g4s" style="margin:18px 0">${[1,2,3,4].map(() => ph(90, '')).join('')}</div>
+        ${clip('Remembering the event')}
+        <div style="margin-top:24px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px">
+          <span class="lk" ${go('issues')}>&larr; Earlier</span>
+          <span style="display:flex;gap:20px"><span class="lk" ${go('place')}>Where</span><span class="lk" ${go('person')}>Who</span></span>
+          <span class="lk" ${go('issues')}>Later &rarr;</span>
+        </div>`
+    },
+    people: {
+      note: 'A theme grid of every "person" post, like a yearbook. The small green headphones mark people who have interview clips.',
+      html: () => `
+        <div class="H">People</div>
+        ${T('Residents, organizers, artists and business owners who shaped the Fenway.')}
+        <div style="margin:14px 0 20px"><span class="fl on">All</span><span class="fl">Activists</span><span class="fl">Artists</span><span class="fl">Business owners</span><span class="fl">Residents</span></div>
+        <div class="g4">
+          ${Array.from({ length: 8 }, (_, i) =>
+            '<div class="ar" ' + go('person') + '>' + '<div class="ph" style="height:180px">portrait' + (i % 3 !== 2 ? '<span class="has-clips">' + ICON_HEADPHONES + '</span>' : '') + '</div>' +
+            '<div class="pname">Person name</div><div class="pmeta">19XX–19XX · role</div></div>').join('')}
+        </div>`
+    },
+    person: {
+      note: 'The main home for oral-history clips: each clip from or about this person is a Ghost audio block, listed in a quiet column.',
+      html: () => `
+        ${crumb('People', 'people', 'Person name')}
+        <div class="g2p">
+          ${ph(380, 'portrait')}
+          <div>
+            <h1 class="title" style="margin-bottom:6px">Person name</h1>
+            <div class="meta" style="margin-bottom:18px">19XX–19XX · role</div>
+            ${T('Short biography: who they are, their connection to the Fenway, and what they are remembered for.')}
+            <div class="H" style="margin-top:22px">In their words</div>
+            <div class="rule-ink">${clip('Growing up on the block', '3:05')}${clip('Working on the street', '2:48')}${clip('What changed', '3:12')}</div>
+            <div style="margin-top:20px;display:flex;gap:20px"><span class="lk" ${go('place')}>Places</span><span class="lk" ${go('event')}>Moments</span></div>
+          </div>
+        </div>`
+    },
+    events: {
+      note: 'Decided: one Ghost page on the FMP site, a plain list a volunteer updates by hand.',
+      html: () => `
+        <div class="H">Events</div>
+        ${T('Walks, workshops and screenings. Updated as new events are added.')}
+        <div class="rule-ink" style="margin-top:16px">
+          ${[['NOV 20','Event name'],['DEC 04','Event name'],['DEC 18','Event name'],['JAN 15','Event name']].map(([d, t]) =>
+            '<div class="ev"><div class="ev-d">' + d + '</div><div><div class="ev-t">' + t + '</div><div class="ev-s">Venue · time · one-line description</div></div></div>').join('')}
+        </div>`
+    },
+    support: {
+      note: 'A static Ghost page with one button block linking to the donation link.',
+      html: () => `
+        <div class="g2e" style="align-items:start">
+          <div>
+            <div class="H">Support the project</div>
+            ${T('Why support matters: two or three sentences on what a gift makes possible, from recording interviews to keeping the archive online.')}
+            <div style="margin-top:12px"><span class="btn">Donate</span></div>
+          </div>
+          ${ph(240)}
+        </div>
+        <div class="g3 rule-ink" style="margin-top:36px;padding-top:18px">
+          ${['Volunteer','Share your story','Newsletter'].map(x => '<div><div class="H">' + x + '</div>' + T('One line on how to take part.') + '</div>').join('')}
+        </div>
+        <div class="meta" style="margin-top:24px">Nonprofit / EIN line</div>`
+    }
+  };
+
+  const MENU = [['home','Home'],['places','Places'],['issues','Issues'],['people','People'],['events','Events'],['support','Support us']];
+  const PARENT = { place: 'places', event: 'issues', person: 'people' };
+  const $ = id => document.getElementById(id);
+  const mlist = $('mlist'), menu = $('menu'), burger = $('burger'), note = $('note');
+  let current = 'home';
+
+  MENU.forEach(([k, label]) => {
+    const d = document.createElement('div');
+    d.className = 'mi'; d.dataset.k = k;
+    d.innerHTML = '<span>' + label + '</span><span class="arr">&rarr;</span>';
+    d.onclick = () => show(k);
+    mlist.appendChild(d);
+  });
+
+  function setMenu(open) {
+    menu.classList.toggle('open', open);
+    burger.classList.toggle('open', open);
+    burger.setAttribute('aria-expanded', open);
+    burger.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    note.innerHTML = '<b>Wireframe note:</b> ' + (open
+      ? 'The three lines turn into an X. Menu links are edited in Ghost admin under Settings → Navigation; the toggle is a small piece of theme code.'
+      : PAGES[current].note);
+  }
+
+  function show(k) {
+    current = k;
+    $('pg').innerHTML = PAGES[k].html();
+    const section = PARENT[k] || k;
+    [...mlist.children].forEach(d => d.classList.toggle('on', d.dataset.k === section));
+    $('cur').textContent = section === 'home' ? '' : MENU.find(m => m[0] === section)[1];
+    setMenu(false);
+    window.scrollTo(0, 0);
+  }
+
+  burger.onclick = () => setMenu(!menu.classList.contains('open'));
+  $('logo').onclick = () => show('home');
+  show('home');
+</script>
+</body>
+</html>
