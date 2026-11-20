@@ -7,7 +7,7 @@
 ## 1. What the project lead wants
 
 ### The big picture
-- **Two sites.** The first is **bitsandflow.org**, the parent nonprofit arts org. The second is **fenwaymemoryproject.org**, the oral-history site. FMP has its own URL but should also appear as a section of bitsandflow. There's a logo for each.
+- **Two sites.** The first is **bitsandflow.com**, the parent nonprofit arts org. The second is **fenwaymemoryproject.org**, the oral-history site. FMP has its own URL but should also appear as a section of bitsandflow. There's a logo for each.
 - **The team.** A small group of students handles the technical build in Ghost. Other cohort members curate content.
 - **The first ask.** Map out what the site should look like (a sitemap and a wireframe), then go through the media and draft a **content schema**.
 - **Admin expected to be easy afterwards.** Setting up the ghost.org account, pointing DNS, and linking Vimeo, SoundCloud and a donation account.

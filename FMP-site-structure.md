@@ -26,7 +26,7 @@ fenwaymemoryproject.org
 
 **Header:** the logo on the left and a **three-line (☰) menu button** on the right. The same button is used on phones and desktop. Tapping it opens the full menu, and it turns into an ✕ to close:
 - Main links: Home · Places · Issues · People · Events · Support us
-- Smaller links: About and team · Contact · Share your story · bitsandflow.org
+- Smaller links: About and team · Contact · Share your story · bitsandflow.com
 
 **How it's built:** the menu links are edited in Ghost admin under Settings → Navigation, with no code. The open/close toggle is a small piece of theme code. Many official Ghost themes already include one.
 
