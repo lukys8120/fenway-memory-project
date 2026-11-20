@@ -1,6 +1,6 @@
 # Fenway Memory Project: Website Planning
 
-Planning material for the **Fenway Memory Project (FMP)** website: an oral-history site about the Fenway neighborhood in Boston, to be built on [Ghost](https://ghost.org). FMP is a project of [bitsandflow](https://bitsandflow.org), with technical work by Northeastern University PHIL3000 service-learning students (Fall 2026).
+Planning material for the **Fenway Memory Project (FMP)** website: an oral-history site about the Fenway neighborhood in Boston, to be built on [Ghost](https://ghost.org). FMP is a project of [bitsandflow](https://bitsandflow.com), with technical work by Northeastern University PHIL3000 service-learning students (Fall 2026).
 
 **Current focus:** site structure and content. Features like AR, synced transcripts and site search are parked for later.
 
